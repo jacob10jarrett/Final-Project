@@ -3,7 +3,6 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from ..dependencies.database import Base
 
-
 class Order(Base):
     __tablename__ = "orders"
 
@@ -15,5 +14,6 @@ class Order(Base):
     order_date = Column(DateTime, nullable=False, default=datetime.utcnow)
     description = Column(String(300), nullable=True)
 
-    # Relationship with OrderDetail
+    # Relationships
     order_details = relationship("OrderDetail", back_populates="order")
+    payments = relationship("Payment", back_populates="order")
