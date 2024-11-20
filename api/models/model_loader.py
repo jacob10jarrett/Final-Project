@@ -8,6 +8,8 @@ from . import (
     menu_items,
     promotion,
     payment,
+    customers,
+    reviews
 )
 
 from ..dependencies.database import engine
@@ -23,3 +25,5 @@ def index():
     menu_items.Base.metadata.create_all(engine)
     promotion.Base.metadata.create_all(engine)
     payment.Base.metadata.create_all(engine)
+    customers.Base.metadata.create_all(engine)
+    reviews.Base.metadata.create_all(engine)
