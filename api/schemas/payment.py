@@ -7,11 +7,16 @@ class PaymentType(str, Enum):
     debit = 'Debit'
     paypal = 'PayPal'
 
+class TransactionStatus(str, Enum):
+    success = 'Success'
+    failed = 'Failed'
+    pending = 'Pending'
+
 class PaymentBase(BaseModel):
     order_id: int
     card_number: str
     payment_type: PaymentType
-    transaction_status: str
+    transaction_status: TransactionStatus
 
     @validator('card_number')
     def validate_card_number(cls, v):
@@ -26,7 +31,7 @@ class PaymentUpdate(BaseModel):
     order_id: Optional[int] = None
     card_number: Optional[str] = None
     payment_type: Optional[PaymentType] = None
-    transaction_status: Optional[str] = None
+    transaction_status: Optional[TransactionStatus] = None
 
     @validator('card_number')
     def validate_card_number(cls, v):

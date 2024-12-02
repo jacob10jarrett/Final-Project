@@ -1,3 +1,4 @@
+from fastapi.responses import Response
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from ..models import promotion as model

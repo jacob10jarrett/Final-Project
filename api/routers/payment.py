@@ -20,13 +20,12 @@ def read_all(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)) -> L
 
 @router.get("/{item_id}", response_model=schema.Payment)
 def read_one(item_id: int, db: Session = Depends(get_db)) -> schema.Payment:
-    return controller.read_one(db, item_id=item_id)
+    return controller.read_one(db=db, item_id=item_id)
 
 @router.put("/{item_id}", response_model=schema.Payment, status_code=status.HTTP_200_OK)
 def update(item_id: int, request: schema.PaymentUpdate, db: Session = Depends(get_db)) -> schema.Payment:
     return controller.update(db=db, request=request, item_id=item_id)
 
 @router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete(item_id: int, db: Session = Depends(get_db)) -> dict:
+def delete(item_id: int, db: Session = Depends(get_db)) -> None:
     controller.delete(db=db, item_id=item_id)
-    return {"detail": "Item deleted successfully"}

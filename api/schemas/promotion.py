@@ -1,5 +1,5 @@
 from pydantic import BaseModel, validator
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 class PromotionBase(BaseModel):
@@ -15,7 +15,7 @@ class PromotionBase(BaseModel):
 
     @validator('expiration_date')
     def validate_expiration_date(cls, v):
-        if v < datetime.now():
+        if v < datetime.now(timezone.utc):
             raise ValueError("Expiration date cannot be in the past.")
         return v
 
@@ -35,7 +35,7 @@ class PromotionUpdate(BaseModel):
 
     @validator('expiration_date')
     def validate_expiration_date(cls, v):
-        if v is not None and v < datetime.now():
+        if v is not None and v < datetime.now(timezone.utc):
             raise ValueError("Expiration date cannot be in the past.")
         return v
 
