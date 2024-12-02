@@ -1,5 +1,5 @@
 import uvicorn
-import schemas
+#import schemas
 from sqlalchemy.orm import Session
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
