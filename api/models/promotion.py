@@ -1,23 +1,10 @@
-from pydantic import BaseModel
-from datetime import datetime
-from typing import Optional
+from sqlalchemy import Column, Integer, String, Float, DateTime
 from ..dependencies.database import Base
 
-class PromotionBase(BaseModel):
-    code: str
-    discount: float
-    expiration_date: datetime
+class Promotion(Base):
+    __tablename__ = "promotions"
 
-class PromotionCreate(PromotionBase):
-    pass
-
-class PromotionUpdate(BaseModel):
-    code: Optional[str] = None
-    discount: Optional[float] = None
-    expiration_date: Optional[datetime] = None
-
-class Promotion(PromotionBase):
-    id: int
-
-    class Config:
-        from_attributes = True
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    code = Column(String(50), unique=True, nullable=False)
+    discount = Column(Float, nullable=False)
+    expiration_date = Column(DateTime, nullable=False)
