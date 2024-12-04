@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
-from .sandwiches import Sandwich
+from .menu_items import MenuItem
 
 
 class OrderDetailBase(BaseModel):
@@ -24,7 +24,9 @@ class OrderDetailUpdate(BaseModel):
 class OrderDetail(OrderDetailBase):
     id: int
     order_id: int
-    menu_item: Sandwich = None
+    menu_item: Optional[MenuItem] = None
+    quantity: int
+    price: float
 
     class Config:
         from_attributes = True

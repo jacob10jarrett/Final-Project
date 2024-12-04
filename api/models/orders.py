@@ -13,8 +13,8 @@ class Order(Base):
     status = Column(String(50), nullable=True)
     tracking_number = Column(String(100), nullable=True)
     order_date = Column(DateTime, nullable=False, default=datetime.utcnow)
-    description = Column(String(300), nullable=True)
 
     # Relationships
     order_details = relationship("OrderDetail", back_populates="order")
     payments = relationship("Payment", back_populates="order")
+    customer = relationship("Customer", back_populates="orders")

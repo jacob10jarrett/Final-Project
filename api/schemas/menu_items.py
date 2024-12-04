@@ -30,5 +30,5 @@ class MenuItem(MenuItemBase):
     menuItemID: int
     ingredients: List[MenuItemIngredient] = []
 
-    class ConfigDict:
-        from_attributes = True
+    class Config:
+        orm_mode = True
