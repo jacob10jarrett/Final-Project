@@ -19,15 +19,15 @@ def create(db: Session, request):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return new_item
 
-def read_all(db: Session):
+def read_all(db: Session, skip: int = 0, limit: int = 10):
     try:
-        result = db.query(model.Promotion).all()
+        result = db.query(model.Promotion).offset(skip).limit(limit).all()
     except SQLAlchemyError as e:
         error = str(e.__dict__['orig'])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return result
 
-def read_one(db: Session, item_id):
+def read_one(db: Session, item_id: int):
     try:
         item = db.query(model.Promotion).filter(model.Promotion.id == item_id).first()
         if not item:
@@ -37,7 +37,7 @@ def read_one(db: Session, item_id):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return item
 
-def update(db: Session, item_id, request):
+def update(db: Session, item_id: int, request):
     try:
         item = db.query(model.Promotion).filter(model.Promotion.id == item_id)
         if not item.first():
@@ -50,7 +50,7 @@ def update(db: Session, item_id, request):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return item.first()
 
-def delete(db: Session, item_id):
+def delete(db: Session, item_id: int):
     try:
         item = db.query(model.Promotion).filter(model.Promotion.id == item_id)
         if not item.first():

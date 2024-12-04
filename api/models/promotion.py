@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, DECIMAL
+from sqlalchemy import Column, Integer, String, DECIMAL, DateTime
 from ..dependencies.database import Base
 
 class Promotion(Base):

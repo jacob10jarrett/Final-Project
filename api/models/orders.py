@@ -1,4 +1,3 @@
-# models/order.py
 from sqlalchemy import Column, ForeignKey, Integer, String, DECIMAL, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -15,6 +14,6 @@ class Order(Base):
     order_date = Column(DateTime, nullable=False, default=datetime.utcnow)
 
     # Relationships
-    order_details = relationship("OrderDetail", back_populates="order")  # Ensure "OrderDetail" is defined
+    order_details = relationship("OrderDetail", back_populates="order")
     payments = relationship("Payment", back_populates="order")
     customer = relationship("Customer", back_populates="orders")
