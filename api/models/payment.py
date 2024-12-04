@@ -1,3 +1,4 @@
+# models/payment.py
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from ..dependencies.database import Base
