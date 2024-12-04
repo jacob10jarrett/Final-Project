@@ -23,23 +23,23 @@ def read_all(db: Session):
     return db.query(MenuItem).all()
 
 def read_one(db: Session, menu_item_id: int):
-    menu_item = db.query(MenuItem).filter(MenuItem.id == menu_item_id).first()
+    menu_item = db.query(MenuItem).filter(MenuItem.menuItemID == menu_item_id).first()  # Use menuItemID
     if not menu_item:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Menu item not found")
+        raise HTTPException(status_code=404, detail="Menu item not found")
     return menu_item
 
 def update(db: Session, menu_item_id: int, request):
-    menu_item = db.query(MenuItem).filter(MenuItem.id == menu_item_id)
+    menu_item = db.query(MenuItem).filter(MenuItem.menuItemID == menu_item_id)  # Use menuItemID
     if not menu_item.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Menu item not found")
+        raise HTTPException(status_code=404, detail="Menu item not found")
     menu_item.update(request.dict(exclude_unset=True), synchronize_session=False)
     db.commit()
     return menu_item.first()
 
 def delete(db: Session, menu_item_id: int):
-    menu_item = db.query(MenuItem).filter(MenuItem.id == menu_item_id)
+    menu_item = db.query(MenuItem).filter(MenuItem.menuItemID == menu_item_id)  # Use menuItemID
     if not menu_item.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Menu item not found")
+        raise HTTPException(status_code=404, detail="Menu item not found")
     menu_item.delete(synchronize_session=False)
     db.commit()
     return {"message": "Menu item deleted"}

@@ -18,7 +18,7 @@ class MenuItemUpdate(BaseModel):
     category: Optional[str] = None
     calories: Optional[int] = None
     price: Optional[float] = None
-    ingredients: Optional[List[int]] = None
+    #ingredients: Optional[List[int]] = None
 
 
 class MenuItemIngredient(BaseModel):
@@ -32,3 +32,6 @@ class MenuItem(MenuItemBase):
 
     class Config:
         orm_mode = True
+        fields = {
+            "menu_item_id": "menuItemID",  # Map API to database field
+        }

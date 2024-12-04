@@ -30,3 +30,6 @@ class OrderDetail(OrderDetailBase):
 
     class Config:
         from_attributes = True
+        fields = {
+            "menu_item_id": "menuItemID",  # Map API to database field
+        }
