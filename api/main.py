@@ -1,19 +1,18 @@
+# main.py
+
 import uvicorn
-#import schemas
-from sqlalchemy.orm import Session
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import index as indexRoute
+from .routers import customers, reviews, orders
+from .dependencies.database import engine
 from .models import model_loader
-from .controllers import customers, reviews
 from .dependencies.config import conf
-from .dependencies.database import engine, get_db
 
-
+# FastAPI app instance
 app = FastAPI()
 
+# CORS settings
 origins = ["*"]
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -22,9 +21,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize database models
 model_loader.index()
-indexRoute.load_routes(app)
 
+# Include routers
+app.include_router(customers.router)
+app.include_router(reviews.router)
+app.include_router(orders.router)  # Ensure orders is defined properly
 
 if __name__ == "__main__":
     uvicorn.run(app, host=conf.app_host, port=conf.app_port)
